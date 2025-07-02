@@ -1,11 +1,10 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { motion } from 'framer-motion';
@@ -16,13 +15,19 @@ export default function Header() {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     function handleGetInfo(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const target = e.currentTarget;
+
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get('name');
+        const tel = formData.get('tel');
+        const email = formData.get('email');
+
         let message = `<b>Get Info</b>\n`;
-        message += `<b>Name:</b> ${target.name.value}\n`;
-        message += `<b>Phone number:</b> ${target.tel.value}\n`;
-        message += `<b>Email:</b> ${target.email.value}`;
+        message += `<b>Name:</b> ${name}\n`;
+        message += `<b>Phone number:</b> ${tel}\n`;
+        message += `<b>Email:</b> ${email}`;
 
         fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
             method: "POST",
@@ -43,7 +48,6 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-
                     <Button color="inherit" onClick={handleOpen}>More info</Button>
                 </Toolbar>
             </AppBar>
