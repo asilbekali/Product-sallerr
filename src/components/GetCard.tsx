@@ -124,7 +124,7 @@ const GetCard = () => {
                     style={{ width: '100%', borderRadius: '10px', marginBottom: '10px' }}
                 />
                 <Typography>{selectedProduct?.description}</Typography>
-                <Typography strong>💰 Narxi: ${selectedProduct?.price}</Typography>
+                <Typography >💰 Narxi: ${selectedProduct?.price}</Typography>
             </Modal>
 
             {/* Cards */}
